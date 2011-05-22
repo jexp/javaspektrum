@@ -1,0 +1,14 @@
+apply plugin: 'idea'
+apply from:'aspectJ.gradle'
+
+repositories {
+    mavenCentral()
+	mavenLocal()
+	mavenRepo urls: "http://maven.springframework.org/release"
+}
+
+
+dependencies{
+	testCompile "junit:junit:4.8"
+	testCompile "org.mockito:mockito-all:1.8.2"
+}
