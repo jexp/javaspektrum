@@ -7,7 +7,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 public privileged aspect DomaenenAspekt {
 
-	private PersistenceManager pm;
+	private PersistenceManager pm = new PersistenceManager();
 	public interface DomaenenObjekt {}
 	pointcut domainObject() : within(com.example.domain.*);
 	
@@ -29,9 +29,12 @@ public privileged aspect DomaenenAspekt {
 			Object result=proceed();
 			pm.commit();
 			return result;
+		} catch(RuntimeException e) {
+			pm.rollback();
+			throw e;
 		} catch(Exception e) {
 			pm.rollback();
-			throw new RuntimeException("Fehler beim transaktionalem Ausführen",e);
+			throw new RuntimeException(e);
 		}
 	}
 

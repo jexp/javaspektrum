@@ -25,7 +25,7 @@ public class KontoTest {
 
     @Test(expected = IllegalStateException.class)
     public void kontoShouldNotAllowValueToBecomeNegative() {
-    	new Konto(1,"test").buche(-2);
+    	new Konto(11,"test").buche(-20);
     }
     
     @Test(expected = IllegalStateException.class)
