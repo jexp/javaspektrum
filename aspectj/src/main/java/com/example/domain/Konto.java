@@ -2,6 +2,7 @@ package com.example.domain;
 
 import com.example.support.Entity;
 import com.example.support.Min;
+import com.example.support.Transactional;
 import com.example.support.Waehrung;
 
 @Entity
@@ -11,7 +12,8 @@ public class Konto {
 	@Min(10) private int wert;
 	
 	private String name;
-	
+
+	@Transactional
 	public void buche(int delta) {
 		wert += delta;
 	}
@@ -26,4 +28,5 @@ public class Konto {
 //		return String.format("%s: %d %s",name, wert , KontoRenderer.CURRENCY);
 		return String.format("%s: %d %s",name, wert , Waehrung.EUR);
 	}
+	
 }
