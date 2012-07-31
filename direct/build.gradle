@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+sourceCompatibility = 1.6
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://raw.github.com/raffaeleguidi/DirectMemory/master/Misc/mvn-repo/snapshots/"
+    }
+    maven {
+        url "http://repo.fusesource.com/maven2"
+    }
+}
+
+dependencies {
+    compile group: 'org.directmemory', name: 'DirectMemory-Cache', version: '0.5.5-SNAPSHOT'
+}
+
+
+
