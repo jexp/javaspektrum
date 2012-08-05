@@ -34,7 +34,7 @@ class GameOfLife {
     def wakingFromDead = alive.inject([].toSet()) { res,cell ->
                           res += haveNeighbourCount(deadNeighbours(cell),[3])}
     
-    new GameOfLife(alive: (stayingAlive + wakingFromDead)) // .makeConcurrent())
+    new GameOfLife(alive: (stayingAlive + wakingFromDead).makeConcurrent())
   }
   String toString() {
 	 (alive.min{it[Y]}[Y]..alive.max{it[Y]}[Y])
@@ -57,7 +57,7 @@ class GameOfLife {
   static GameOfLife random(count, size) {
 	 def rnd = new Random(0L)
 	 def alive = ((0..count).collect { [rnd.nextInt(size),rnd.nextInt(size)]}).toSet()
-     new GameOfLife(alive: alive) // .makeConcurrent())	
+     new GameOfLife(alive: alive.makeConcurrent())
   }
 
 }
@@ -70,9 +70,6 @@ def gol=GameOfLife.fromString(
 
 """)
 
-gol = GameOfLife.random(10000,500)
-
-
 def benchmark = { closure ->  
   start = System.currentTimeMillis()  
   closure.call()  
@@ -80,4 +77,8 @@ def benchmark = { closure ->
   now - start  
 }
 
-println benchmark { 50.times{ gol = gol.next() }}
+println benchmark { 1000.times{ gol = gol.next() }}
+
+gol = GameOfLife.random(10000,500)
+
+println benchmark { 100.times{ gol = gol.next() }}

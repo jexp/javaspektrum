@@ -18,19 +18,19 @@ class GameOfLife {
   }
 
   def deadNeighbours(def cell) {
-    neighbours(cell) - aliveNeighbours(cell)
+    neighbours(cell).findAll { !alive.contains(it) }
   }
 
   def haveNeighbourCount(def coll, def counts) {
-    coll.findAll { counts.contains(aliveNeighbours(it).size())}
+	coll.findAll { counts.contains(aliveNeighbours(it).size())}
   }
 
   GameOfLife next() {
-    def stayingAlive = haveNeighbourCount(alive, [2,3])
-    def wakingFromDead = alive.inject([]) { res,cell ->
+    def stayingAlive = haveNeighbourCount(alive, [2,3]).toSet()
+    def wakingFromDead = alive.inject([].toSet()) { res,cell ->
                           res += haveNeighbourCount(deadNeighbours(cell),[3])}
     
-    new GameOfLife(alive: new HashSet(stayingAlive + wakingFromDead))
+    new GameOfLife(alive: (stayingAlive + wakingFromDead))
   }
   String toString() {
 	 (alive.min{it[Y]}[Y]..alive.max{it[Y]}[Y])
@@ -50,6 +50,12 @@ class GameOfLife {
 	 }
      new GameOfLife(alive: alive)	
   }
+  static GameOfLife random(count, size) {
+	 def rnd = new Random(0L)
+	 def alive = ((0..count).collect { [rnd.nextInt(size),rnd.nextInt(size)]}).toSet()
+     new GameOfLife(alive: alive)
+  }
+
 }
 def gol=GameOfLife.fromString(
 """
@@ -60,4 +66,15 @@ def gol=GameOfLife.fromString(
 
 """)
 
-200.times{ println gol = gol.next() }
+def benchmark = { closure ->  
+  start = System.currentTimeMillis()  
+  closure.call()  
+  now = System.currentTimeMillis()  
+  now - start  
+}
+
+println benchmark { 1000.times{ gol = gol.next() }}
+
+gol = GameOfLife.random(10000,500)
+
+println benchmark { 100.times{ gol = gol.next() }}
