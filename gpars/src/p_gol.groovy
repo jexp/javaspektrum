@@ -10,11 +10,11 @@ ParallelEnhancer.enhanceClass(HashSet)
  */
 class GameOfLife {
   static int X=0,Y=1;
-  static def env = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]]
+  static def env = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]].toSet().makeConcurrent()
   def alive = []
 
   def neighbours(def cell) {
-    env.collect { [cell[X]+it[X],cell[Y]+it[Y]] }
+    this.@env.collect { [cell[X]+it[X],cell[Y]+it[Y]] }.toSet().makeConcurrent()
   }
 
   def aliveNeighbours(def cell) {
@@ -30,8 +30,8 @@ class GameOfLife {
   }
 
   GameOfLife next() {
-    def stayingAlive = haveNeighbourCount(alive, [2,3]).toSet()
-    def wakingFromDead = alive.inject([].toSet()) { res,cell ->
+    def stayingAlive = haveNeighbourCount(this.@alive, [2,3]).toSet()
+    def wakingFromDead = this.@alive.inject([].toSet()) { res,cell ->
                           res += haveNeighbourCount(deadNeighbours(cell),[3])}
     
     new GameOfLife(alive: (stayingAlive + wakingFromDead).makeConcurrent())
@@ -57,7 +57,7 @@ class GameOfLife {
   static GameOfLife random(count, size) {
 	 def rnd = new Random(0L)
 	 def alive = ((0..count).collect { [rnd.nextInt(size),rnd.nextInt(size)]}).toSet()
-     new GameOfLife(alive: alive.makeConcurrent())
+     new GameOfLife(alive: alive.makeConcurrent())	
   }
 
 }
@@ -76,7 +76,6 @@ def benchmark = { closure ->
   now = System.currentTimeMillis()  
   now - start  
 }
-
 println benchmark { 1000.times{ gol = gol.next() }}
 
 gol = GameOfLife.random(10000,500)
