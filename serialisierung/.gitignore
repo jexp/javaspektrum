@@ -1,0 +1,7 @@
+*.iml
+.shell_history
+*.csv
+target
+.idea
+.DS_Store
+*.geoff
