@@ -3,6 +3,8 @@ package de.jexp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.AbstractList;
+import java.util.List;
 
 public class BonBinary implements Bon {
     final static int TIME=4, STORE=2, BON = 2, CUSTOMER=2, PRODUCT=2, QUANTITY = 1, PRICE=3;
@@ -51,17 +53,62 @@ public class BonBinary implements Bon {
     @Override
     public BigDecimal getTotal() {
         long result = 0;
-        for (int i=0;i<count;i++) {
-             result += data.read(SIZE + i*ITEM_SIZE + QUANTITY_OFF, QUANTITY) *
-                     data.read(SIZE + i*ITEM_SIZE + PRICE_OFF, PRICE);
+        for (int item=0;item<count;item++) {
+            result += getTotal(item);
         }
         return BigDecimal.valueOf(result, 2);
     }
 
+    private long getTotal(int item) {
+        int off = SIZE + item * ITEM_SIZE;
+        return data.read(off + QUANTITY_OFF, QUANTITY) *
+                 data.read(off + PRICE_OFF, PRICE);
+    }
+
     public void addItem(int item, int quantity, String product, BigDecimal price) {
-        int baseOffset = SIZE + item * ITEM_SIZE;
-        data.write(quantity, baseOffset + QUANTITY_OFF, QUANTITY);
-        data.write(Long.parseLong(product),baseOffset + PRODUCT_OFF, PRODUCT);
-        data.write(price.unscaledValue().longValue(),baseOffset + PRICE_OFF, PRICE);
+        int off = SIZE + item * ITEM_SIZE;
+        data.write(quantity, off + QUANTITY_OFF, QUANTITY);
+        data.write(Long.parseLong(product),off + PRODUCT_OFF, PRODUCT);
+        data.write(price.unscaledValue().longValue(),off + PRICE_OFF, PRICE);
+    }
+
+    public void addProductTotal(long[] totals) {
+        for (int item=0;item<count;item++) {
+            int off = SIZE + item * ITEM_SIZE;
+            totals[(int) data.read( off + PRODUCT_OFF, PRODUCT)]
+                    += data.read( off + QUANTITY_OFF, QUANTITY) *
+                    data.read(off + PRICE_OFF, PRICE);
+        }
+    }
+
+    @Override
+    public List<BonItem> getItems() {
+        return new AbstractList<>() {
+            @Override
+            public BonItem get(int item) {
+                int off = SIZE + item * ITEM_SIZE;
+                return new BonItem() {
+                    @Override
+                    public String getProduct() {
+                        return String.valueOf(data.read(off + PRODUCT_OFF, PRODUCT));
+                    }
+
+                    @Override
+                    public BigDecimal getTotal() {
+                        return BigDecimal.valueOf(BonBinary.this.getTotal(item),2);
+                    }
+
+                    @Override
+                    public int getQuantity() {
+                        return (int) data.read(off + QUANTITY_OFF, QUANTITY);
+                    }
+                };
+            }
+
+            @Override
+            public int size() {
+                return count;
+            }
+        };
     }
 }

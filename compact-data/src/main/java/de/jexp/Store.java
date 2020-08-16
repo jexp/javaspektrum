@@ -19,6 +19,10 @@ public class Store {
     public String getStore() {
         return store;
     }
+
+    public List<Bon> getBons() {
+        return bons;
+    }
 }
 interface Constants {
     int STORES=10000;
@@ -40,6 +44,7 @@ interface Bon {
     String getStore();
     String getBon();
     BigDecimal getTotal();
+    List<BonItem> getItems();
 }
 
 class BonObject implements Bon {
@@ -65,6 +70,10 @@ class BonObject implements Bon {
     @Override
     public BigDecimal getTotal() {
         return items.stream().map(BonItem::getTotal).reduce( BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public List<BonItem> getItems() {
+        return items;
     }
 
     public BonObject(Store store, String bon, LocalDateTime time) {

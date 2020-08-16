@@ -31,30 +31,35 @@
 
 package de.jexp;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.annotations.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @Warmup(time = 5)
-public class MyBenchmark {
+@Fork(value=2, warmups = 2)
+@Threads(1)
+public class ComputeBenchmark {
+
+    static List<Store> storesBinary = new Generator().generateBinary(1);
+    static List<Store> storesObjects = new Generator().generateObjects(1);
 
     // @Benchmark
-    public void generateObjects() {
-        new Generator().generateObjects(1);
-    }
-    //@Benchmark
-    public void generateBinary() {
-        new Generator().generateBinary(1);
-    }
-
-    @Benchmark
-    public void binaryTotal() {
+    public void totalBinary() {
         BonBinary bon = new BonBinary(LocalDateTime.now(), "123", "456", 1000);
         IntStream.range(0,1000).forEach( i -> bon.addItem(i, 1000-i, String.valueOf(i), BigDecimal.valueOf(i,2)));
         assert BigDecimal.valueOf(10000,2).equals(bon.getTotal());
+    }
+
+    @Benchmark
+    public void totalPerProductObject() {
+        new Computer().computeSalesPerProduct(storesObjects);
+    }
+    @Benchmark
+    public void totalPerProductBinary() {
+        new Computer().computeSalesPerProductBinary(storesBinary);
     }
 
 }
