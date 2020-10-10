@@ -43,11 +43,11 @@ public class Generator {
                 .toArray(Product[]::new);
         LocalDateTime now = LocalDateTime.now();
         return IntStream.range(0, stores).mapToObj(
-                i -> {
-                    Store s = new Store(String.valueOf(i));
+                store -> {
+                    Store s = new Store(String.valueOf(store));
                     IntStream.range(0, BONS).forEach(bon -> {
                         int items = random.nextInt(2, 100);
-                        var b = new BonBinary(now,s.store, String.valueOf(bon),items);
+                        var b = new BonBinary(now,store, bon,items);
                         IntStream.range(0, items)
                                 .forEach(item ->
                                 {

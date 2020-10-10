@@ -33,6 +33,14 @@ public class BonBinary implements Bon {
         data.write(Long.parseLong(store), STORE_OFF,STORE);
         data.write(Long.parseLong(bon), BON_OFF,BON);
     }
+    public BonBinary(LocalDateTime time, long store, long bon, int count) {
+        data = new Data(SIZE + count * ITEM_SIZE);
+        this.count = count;
+        long value = time.toEpochSecond(ZoneOffset.UTC) / 60;
+        data.write(value, TIME_OFF,TIME);
+        data.write(store, STORE_OFF,STORE);
+        data.write(bon, BON_OFF,BON);
+    }
 
     @Override
     public LocalDateTime getTime() {
