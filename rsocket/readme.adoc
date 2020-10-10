@@ -1,0 +1,42 @@
+== RSocket Example (WIP)
+
+Examples taken from https://www.baeldung.com/rsocket[Baeldung article] (thank you!) and adjusted and updated to rsocket - 1.1.0-M2
+
+https://github.com/jexp/blog/blob/gh-pages/adoc/articles/javaspektrum-rsocket.adoc[JavaSpektrum Article (german)]
+
+.Using the RSocket (Websocket WSS) Demo server
+----
+mvn exec:java -Dexec.mainClass=rsocket.Client
+----
+
+=== Server
+
+.Run Server
+----
+mvn exec:java -Dexec.mainClass=rsocket.Server &
+----
+
+=== Fire and Forget
+
+----
+mvn exec:java -Dexec.mainClass=rsocket.FireNForgetClient &
+----
+
+=== Request Response
+
+----
+mvn exec:java -Dexec.mainClass=rsocket.ReqResClient &
+----
+
+=== Request Stream
+
+----
+mvn exec:java -Dexec.mainClass=rsocket.ReqStreamClient &
+----
+
+=== Channel
+
+----
+mvn exec:java -Dexec.mainClass=rsocket.ChannelClient &
+mvn exec:java -Dexec.mainClass=rsocket.ChannelClient &
+----
