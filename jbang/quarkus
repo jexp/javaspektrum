@@ -1,0 +1,19 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+//DEPS io.quarkus:quarkus-resteasy:1.8.1.Final
+//SOURCES **/*.java
+//FILES META-INF/resources/index.html=index.html
+
+import static java.lang.System.*;
+import io.quarkus.runtime.*;
+import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.*;
+
+@Path("/hello")
+@ApplicationScoped
+public class quarkus {
+
+    @GET
+    public String hello() {
+        return "Hello Quarkus";
+    }
+}

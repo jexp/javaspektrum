@@ -1,0 +1,33 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+//DEPS org.testcontainers:neo4j:1.15.3
+//DEPS org.neo4j.driver:neo4j-java-driver:4.3.4
+
+import static java.lang.System.*;
+import java.util.*;
+import org.testcontainers.containers.*;
+import org.neo4j.driver.*;
+
+public class Neo4jTest {
+
+    private static Neo4jContainer startContainer() {
+        var container = new Neo4jContainer()
+        .withAdminPassword(null);
+        container.start();
+        return container;
+    }
+
+    private static Value queryDatabase(String boltUrl) {
+        try (
+            Driver driver = GraphDatabase.driver(boltUrl, AuthTokens.none());
+            Session session = driver.session()) {
+            return session.run("RETURN 1", Map.of()).single().get(0);
+        }
+    }
+    public static void main(String... args) {
+        var container = startContainer();
+        var result = queryDatabase(container.getBoltUrl());
+        out.println(result);
+        assert result.asLong() == 1L;
+        container.stop();
+    }
+}
