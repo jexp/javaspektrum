@@ -1,0 +1,35 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+//DEPS org.neo4j.driver:neo4j-java-driver:4.3.4
+//DEPS com.github.freva:ascii-table:1.2.0
+
+// NEO4J_URL="bolt://localhost" NEO4J_PASSWORD="secret" ./neo4j-query "MATCH (n:Person) RETURN n.name, n.age"
+import static java.lang.System.*;
+import java.sql.*;
+import java.util.*;
+import org.neo4j.driver.*;
+import com.github.freva.asciitable.*;
+
+public class Neo4jQuery {
+
+    public static void main(String... args) throws Exception {
+        try (var driver=GraphDatabase.driver(System.getenv("NEO4J_URL"), 
+                        AuthTokens.basic( "neo4j", System.getenv("NEO4J_PASSWORD")));
+             var session=driver.session()) {
+
+             var result=session.run(String.join(" ",args));
+             var cols=result.keys().toArray(new String[result.keys().size()]);
+             int row=0;
+             String[][] rows=new String[100][];
+             while (result.hasNext() && row < 100) {
+                var record = result.next();
+                rows[row]=new String[cols.length];
+                for (int c=0;c<cols.length;c++) {
+                    rows[row][c]=String.valueOf(record.get(cols[c]).asObject());
+                }
+                row++;
+            }
+            out.println(AsciiTable.getTable(cols,
+                        Arrays.copyOf(rows,row)));
+        }
+    }
+}
