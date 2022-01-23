@@ -1,0 +1,24 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+//DEPS org.neo4j.driver:neo4j-java-driver:4.4.0-beta01
+
+import static java.lang.System.*;
+import java.util.*;
+import org.neo4j.driver.*;
+
+public class Neo4jDriver {
+
+    private static Value queryDatabase(String boltUrl, String user) {
+        var config=SessionConfig.builder().withImpersonatedUser(user).withDatabase("andersson").build();
+        try (
+            Driver driver = GraphDatabase.driver(boltUrl, AuthTokens.basic("neo4j","test"));
+            Session session = driver.session(config)) {
+            return session.run("match () return count(*)", Map.of()).single().get(0);
+            // call dbms.showCurrentUser() yield username
+        }
+    }
+    public static void main(String... args) {
+        var result = queryDatabase("neo4j://localhost","test");
+        out.println(result);
+        // assert result.asLong() == 1L;
+    }
+}

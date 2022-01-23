@@ -1,0 +1,13 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+
+import java.net.URL;
+
+import static java.lang.System.*;
+
+public class MavenUrl {
+
+    public static void main(String... args) {
+        var text=new URL("http://search.maven.org/solrsearch/select?q=g:%22org.neo4j%22+AND+a:%22neo4j%22&core=gav&rows=500&wt=json").getText();
+        out.println(text);
+    }
+}
