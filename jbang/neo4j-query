@@ -4,7 +4,6 @@
 
 // NEO4J_URL="bolt://localhost" NEO4J_PASSWORD="secret" ./neo4j-query "MATCH (n:Person) RETURN n.name, n.age"
 import static java.lang.System.*;
-import java.sql.*;
 import java.util.*;
 import org.neo4j.driver.*;
 import com.github.freva.asciitable.*;
