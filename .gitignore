@@ -2,6 +2,9 @@
 .idea
 .classpath
 .project
+*.class
+*.jar
+*.zip
 *.ipr
 *.iws
 *.iml

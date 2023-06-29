@@ -1,0 +1,174 @@
+Classfile /Users/mh/Dropbox/Public/blog/adoc/articles/Person.class
+  Last modified 13.02.2020; size 1284 bytes
+  SHA-256 checksum b3e49eedbc77a7281825365f89efbecaee4e3aefd51d896f6a5c6ff213bc3fb5
+  Compiled from "Person.java"
+public final class Person extends java.lang.Record
+  minor version: 65535
+  major version: 58
+  flags: (0x0031) ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+  this_class: #8                          // Person
+  super_class: #2                         // java/lang/Record
+  interfaces: 0, fields: 2, methods: 6, attributes: 4
+Constant pool:
+   #1 = Methodref          #2.#3          // java/lang/Record."<init>":()V
+   #2 = Class              #4             // java/lang/Record
+   #3 = NameAndType        #5:#6          // "<init>":()V
+   #4 = Utf8               java/lang/Record
+   #5 = Utf8               <init>
+   #6 = Utf8               ()V
+   #7 = Fieldref           #8.#9          // Person.name:Ljava/lang/String;
+   #8 = Class              #10            // Person
+   #9 = NameAndType        #11:#12        // name:Ljava/lang/String;
+  #10 = Utf8               Person
+  #11 = Utf8               name
+  #12 = Utf8               Ljava/lang/String;
+  #13 = Fieldref           #8.#14         // Person.geburtstag:Ljava/time/LocalDate;
+  #14 = NameAndType        #15:#16        // geburtstag:Ljava/time/LocalDate;
+  #15 = Utf8               geburtstag
+  #16 = Utf8               Ljava/time/LocalDate;
+  #17 = Fieldref           #8.#9          // Person.name:Ljava/lang/String;
+  #18 = Fieldref           #8.#14         // Person.geburtstag:Ljava/time/LocalDate;
+  #19 = InvokeDynamic      #0:#20         // #0:toString:(LPerson;)Ljava/lang/String;
+  #20 = NameAndType        #21:#22        // toString:(LPerson;)Ljava/lang/String;
+  #21 = Utf8               toString
+  #22 = Utf8               (LPerson;)Ljava/lang/String;
+  #23 = InvokeDynamic      #0:#24         // #0:hashCode:(LPerson;)I
+  #24 = NameAndType        #25:#26        // hashCode:(LPerson;)I
+  #25 = Utf8               hashCode
+  #26 = Utf8               (LPerson;)I
+  #27 = InvokeDynamic      #0:#28         // #0:equals:(LPerson;Ljava/lang/Object;)Z
+  #28 = NameAndType        #29:#30        // equals:(LPerson;Ljava/lang/Object;)Z
+  #29 = Utf8               equals
+  #30 = Utf8               (LPerson;Ljava/lang/Object;)Z
+  #31 = Utf8               (Ljava/lang/String;Ljava/time/LocalDate;)V
+  #32 = Utf8               Code
+  #33 = Utf8               LineNumberTable
+  #34 = Utf8               MethodParameters
+  #35 = Utf8               ()Ljava/lang/String;
+  #36 = Utf8               ()I
+  #37 = Utf8               (Ljava/lang/Object;)Z
+  #38 = Utf8               ()Ljava/time/LocalDate;
+  #39 = Utf8               SourceFile
+  #40 = Utf8               Person.java
+  #41 = Utf8               Record
+  #42 = Utf8               BootstrapMethods
+  #43 = MethodHandle       6:#44          // REF_invokeStatic java/lang/runtime/ObjectMethods.bootstrap:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/TypeDescriptor;Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;
+  #44 = Methodref          #45.#46        // java/lang/runtime/ObjectMethods.bootstrap:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/TypeDescriptor;Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;
+  #45 = Class              #47            // java/lang/runtime/ObjectMethods
+  #46 = NameAndType        #48:#49        // bootstrap:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/TypeDescriptor;Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;
+  #47 = Utf8               java/lang/runtime/ObjectMethods
+  #48 = Utf8               bootstrap
+  #49 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/TypeDescriptor;Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;
+  #50 = String             #51            // name;geburtstag
+  #51 = Utf8               name;geburtstag
+  #52 = MethodHandle       1:#7           // REF_getField Person.name:Ljava/lang/String;
+  #53 = MethodHandle       1:#13          // REF_getField Person.geburtstag:Ljava/time/LocalDate;
+  #54 = Utf8               InnerClasses
+  #55 = Class              #56            // java/lang/invoke/MethodHandles$Lookup
+  #56 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #57 = Class              #58            // java/lang/invoke/MethodHandles
+  #58 = Utf8               java/lang/invoke/MethodHandles
+  #59 = Utf8               Lookup
+{
+  private final java.lang.String name;
+    descriptor: Ljava/lang/String;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  private final java.time.LocalDate geburtstag;
+    descriptor: Ljava/time/LocalDate;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  public Person(java.lang.String, java.time.LocalDate);
+    descriptor: (Ljava/lang/String;Ljava/time/LocalDate;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=3
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Record."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #7                  // Field name:Ljava/lang/String;
+         9: aload_0
+        10: aload_2
+        11: putfield      #13                 // Field geburtstag:Ljava/time/LocalDate;
+        14: return
+      LineNumberTable:
+        line 3: 0
+    MethodParameters:
+      Name                           Flags
+      name
+      geburtstag
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokedynamic #19,  0             // InvokeDynamic #0:toString:(LPerson;)Ljava/lang/String;
+         6: areturn
+      LineNumberTable:
+        line 3: 0
+
+  public final int hashCode();
+    descriptor: ()I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokedynamic #23,  0             // InvokeDynamic #0:hashCode:(LPerson;)I
+         6: ireturn
+      LineNumberTable:
+        line 3: 0
+
+  public final boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: invokedynamic #27,  0             // InvokeDynamic #0:equals:(LPerson;Ljava/lang/Object;)Z
+         7: ireturn
+      LineNumberTable:
+        line 3: 0
+
+  public java.lang.String name();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #17                 // Field name:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 3: 0
+
+  public java.time.LocalDate geburtstag();
+    descriptor: ()Ljava/time/LocalDate;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #18                 // Field geburtstag:Ljava/time/LocalDate;
+         4: areturn
+      LineNumberTable:
+        line 3: 0
+}
+SourceFile: "Person.java"
+Record:
+  java.lang.String name;
+    descriptor: Ljava/lang/String;
+
+  java.time.LocalDate geburtstag;
+    descriptor: Ljava/time/LocalDate;
+
+BootstrapMethods:
+  0: #43 REF_invokeStatic java/lang/runtime/ObjectMethods.bootstrap:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/TypeDescriptor;Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;
+    Method arguments:
+      #8 Person
+      #50 name;geburtstag
+      #52 REF_getField Person.name:Ljava/lang/String;
+      #53 REF_getField Person.geburtstag:Ljava/time/LocalDate;
+InnerClasses:
+  public static final #59= #55 of #57;    // Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles

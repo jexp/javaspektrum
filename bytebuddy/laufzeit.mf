@@ -1,0 +1,3 @@
+Premain-Class: example.LaufzeitAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
